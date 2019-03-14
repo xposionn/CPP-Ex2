@@ -15,17 +15,19 @@ int main() {
     // constructs an empty tree:
     ariel::Tree emptytree;
     cout << "emptytree: size=" << emptytree.size() << endl; // should print 0
-    
+
     // constructs an ordered binary tree where:
       // 5 is in the root;
       // 3 is the root's left child;
       // 7 is the root's right child.
     ariel::Tree threetree;
-    threetree.insert(5).insert(7).insert(3);
-    cout << "threetree: size=" << threetree.size() << " root=" << threetree.root() << endl << "   ";  // size=3, root=5.
+    threetree.insert(5);
+    threetree.insert(7);
+    threetree.insert(3);
+    cout << "threetree: size=" << threetree.size() << " roots=" << threetree.root() << endl << "   ";  // size=3, root=5.
     threetree.print();
     cout << endl;
-      
+
     cout << threetree.size()      // should print 3
          << threetree.parent(3)   // should print 5
          << threetree.parent(7)   // should print 5
