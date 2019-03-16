@@ -24,6 +24,9 @@ Tree::Tree(){
   _size = 0;
 }
 
+  //TODO: ~Tree();
+}
+
 Tree& Tree::insert(int n){
   if(contains(n)){
     throw invalid_argument("already in");

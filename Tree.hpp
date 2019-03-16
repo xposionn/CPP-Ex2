@@ -5,15 +5,9 @@ public:
   int _data;
   Node* left;
   Node* right;
-
-
   Node(int data);
-  // ~Node();
-
   int getData();
 };
-
-
 class Tree{
 public:
   Node* _root;
@@ -23,6 +17,7 @@ private:
 public:
 //Constructor & Destructor
   Tree();
+  //~Tree();
 //Methods
   Node* find(int i);
   int getSize();
@@ -35,8 +30,6 @@ public:
   int left(int i);
   int right(int i);
   void print();
-
-
 private:
   void printRecursive(Node* curr);
   Node* find(Node* curr,int i);
