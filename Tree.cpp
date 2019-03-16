@@ -24,8 +24,19 @@ Tree::Tree(){
   _size = 0;
 }
 
-  //TODO: ~Tree();
+Tree::~Tree(){
+  Node* curr = _root;
+  Destroy(curr);
 }
+void Tree::Destroy(Node* curr){
+  if(curr==NULL){
+    return;
+  }
+  Destroy(curr->left);
+  Destroy(curr->right);
+  delete curr;
+}
+
 
 Tree& Tree::insert(int n){
   if(contains(n)){
@@ -37,7 +48,6 @@ Tree& Tree::insert(int n){
    }else{
    Node* newNode = new Node(n);
    Node* curr = _root;
-
      while(true){
      if((*newNode).getData()<(*curr).getData()){
        if(curr->left == NULL){
@@ -64,14 +74,13 @@ Tree& Tree::insert(int n){
 
 void Tree::remove(int i){
   if(contains(i)){
-    _size--;
-    cout << "in contains" << endl;
-    Node* toRemove = find(i);
-    if(parent(i)==NULL){
-      _root = NULL;
+    if(_size==1){;
+      _size--;
       delete _root;
+      _root = NULL;
       return;
     }
+    Node* toRemove = find(i);
     Node* parentof = find(parent(i));
     if(toRemove->left == NULL && toRemove->right == NULL){
       cout << "no chils" << endl;
@@ -116,7 +125,8 @@ void Tree::remove(int i){
           parentof->right = toRemove->left;
         }
     }
-      free(toRemove);
+      _size--;
+      delete toRemove;
   }else{
     throw invalid_argument("has have this number");
   }
@@ -141,9 +151,6 @@ int Tree::root(){
 }
 int Tree::parent(int i){
   if(!contains(i) || find(i) == _root){
-    if(find(i) != _root){
-      return NULL;
-    }
     throw invalid_argument("non contains or has no parent");
   }else{
     Node* par = _root;

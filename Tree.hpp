@@ -17,7 +17,7 @@ private:
 public:
 //Constructor & Destructor
   Tree();
-  //~Tree();
+  ~Tree();
 //Methods
   Node* find(int i);
   int getSize();
@@ -33,6 +33,7 @@ public:
 private:
   void printRecursive(Node* curr);
   Node* find(Node* curr,int i);
+  void Destroy(Node* curr);
   Node& getRoot();
 };
 }
