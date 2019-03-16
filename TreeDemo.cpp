@@ -7,7 +7,6 @@
 
 #include <iostream>
 using std::cout, std::endl;
-
 #include "Tree.hpp"
 
 int main() {
@@ -21,10 +20,8 @@ int main() {
       // 3 is the root's left child;
       // 7 is the root's right child.
     ariel::Tree threetree;
-    threetree.insert(5);
-    threetree.insert(7);
-    threetree.insert(3);
-    cout << "threetree: size=" << threetree.size() << " roots=" << threetree.root() << endl << "   ";  // size=3, root=5.
+    threetree.insert(5).insert(7).insert(3);//changed
+    cout << "threetree: size=" << threetree.size() << " root=" << threetree.root() << endl << "   ";  // size=3, root=5.
     threetree.print();
     cout << endl;
 
