@@ -39,21 +39,23 @@ int main() {
   .CHECK_OK    (threetree.print())
 
 //Added tests:
-  .check_equal (increasetree.size(), 0)
-  .check_ok (increasetree.insert(0))
-  .check_ok (increasetree.insert(1))
-  .check_ok (increasetree.insert(2))
-  .check_ok (increasetree.insert(3))
-  .check_equal (increasetree.size(), 4)
-  .check_throws (increasetree.parent(0))
-  .check_equal (increasetree.parent(1),0)
-  .check_throws (increasetree.left(3))
-  .check_throws (increasetree.right(3))
-  .check_throws (increasetree.left(0))
-  .check_equal (increasetree.right(0),1)
-  .check_equal (increasetree.getSize(),4)
-  .check_ok (increasetree.find(2))
-  .check_ok (increasetree.root())
+  .check_equal (increasetree.size(), 0) //new tree should have size zero.
+  .check_ok (increasetree.insert(0)) //inserting integers in increasing order. tree should be as follows:
+  //                                    0
+  .check_ok (increasetree.insert(1)) //   1
+  .check_ok (increasetree.insert(2)) //     2
+  .check_ok (increasetree.insert(3)) //       3
+  .check_equal (increasetree.size(), 4) //tree size should be 4. we inserted 4 elements.
+  .check_throws (increasetree.parent(0)) //there should be no parent for node "0".
+  .check_equal (increasetree.parent(1),0) //parent of element "1" should be the root, a.k.a  "0".
+  .check_throws (increasetree.left(3)) //there are no childs for node "3".
+  .check_throws (increasetree.right(3)) //there are no childs for node "3".
+  .check_throws (increasetree.left(0)) //there are no left-childs for the root "0".
+  .check_equal (increasetree.right(0),1) //there right child of root node "0" should be "1".
+  .check_equal (increasetree.getSize(),4) //function "getSize" should return 4.
+  .check_ok (increasetree.find(2)) //function "find" should pass as "2" is inside the tree.
+  .check_throws (increasetree.find(0)) //function "find" should fail as "0" is NOT inside the tree.
+  .check_ok (increasetree.root()) //function "root" should pass as there is a root for the tree.
 
   .check_ok (negativetree.insert(-1)) //adding negative integers in degreasing order.
   .check_ok (negativetree.insert(-2))
