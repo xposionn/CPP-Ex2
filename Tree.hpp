@@ -20,7 +20,6 @@ public:
   ~Tree();
 //Methods
   Node* find(int i);
-  int getSize();
   Tree& insert(int i);
   void remove(int i);
   int size();

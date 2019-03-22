@@ -25,8 +25,7 @@ Tree::Tree(){
 }
 
 Tree::~Tree(){
-  Node* curr = _root;
-  Destroy(curr);
+  Destroy(_root);
 }
 void Tree::Destroy(Node* curr){
   if(curr==NULL){
@@ -77,13 +76,12 @@ void Tree::remove(int i){
     if(_size==1){;
       _size--;
       delete _root;
-      _root = NULL;
       return;
     }
     Node* toRemove = find(i);
     Node* parentof = find(parent(i));
     if(toRemove->left == NULL && toRemove->right == NULL){
-      cout << "no chils" << endl;
+      cout << "no childs" << endl;
       if(parentof->left->getData() == toRemove->getData()){
         cout << "left child" << endl;
         parentof->left = NULL;
@@ -128,16 +126,17 @@ void Tree::remove(int i){
       _size--;
       delete toRemove;
   }else{
-    throw invalid_argument("has have this number");
+    throw invalid_argument("doesn't have this number");
   }
-
 }
 int Tree::size(){
   return _size;
 }
 bool Tree::contains(int i){
+  try{
   Node* isIn = find(i);
-  if(isIn == NULL){
+  }
+  catch(exception& e){
     return false;
   }
   return true;
@@ -146,16 +145,16 @@ int Tree::root(){
   if(_size>0){
     return _root->getData();
   }else{
-    throw invalid_argument("no root has been init..");
+    throw invalid_argument("there is no root");
   }
 }
 int Tree::parent(int i){
   if(!contains(i) || find(i) == _root){
-    throw invalid_argument("non contains or has no parent");
+    throw invalid_argument("has no parent or does not contains specified node requested the parent of.");
   }else{
     Node* par = _root;
     Node* curr = find(i);
-    while(par->right->getData() != curr->getData() && par->left->getData() != curr->getData()){
+    while((par->right!=NULL && par->right->getData() != curr->getData()) && (par->left != NULL && par->left->getData() != curr->getData())){
       if(i<par->getData()){
         par = par->left;
       }else{
@@ -187,29 +186,30 @@ void Tree::printRecursive(Node* curr){
   printRecursive(curr->right);
 }
 
-int Tree::getSize(){
-  return _size;
-}
 
 Node* Tree::find(int i){
-  if(getSize() > 0 ){
+  if(size() > 0 ){
   return find(_root,i);
   }else{
   cout << "an empty tree" << endl;
-  return NULL;
+  throw invalid_argument("cannot find anything in empty tree.");
   }
 }
 
 Node* Tree::find(Node* curr,int i){
   if(curr == NULL){
-      return NULL;
+      throw invalid_argument("no node provided. for find function");
   }
   if(curr->getData()==i){
       return curr;
-  }else if(i<curr->getData()){
+  }else if(i<curr->getData() && curr->left != NULL){
     return find(curr->left,i);
-  }else{
+  }else if(i>curr->getData() && curr->right != NULL){
     return find(curr->right,i);
+  }
+  else{
+    cout<<"could not find requested node: " +to_string(i) << endl;
+    throw invalid_argument("could not find the requested node");
   }
 }
 
