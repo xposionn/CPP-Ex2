@@ -18,6 +18,7 @@ int main() {
   threetree.insert(3);
   ariel::Tree increasetree; //tree for increasing-order checks and tests for all combinations of binary tree test cases.
   ariel::Tree negativetree;  //tree for decreasing-order with NEGATIVE integers checks and tests for all combinations of binary tree test cases.
+  ariel::Tree massivetree; //fully grown complex binary tree for all remaining test cases.
 
   badkan::TestCase tc("Binary tree");
   tc
@@ -36,9 +37,9 @@ int main() {
   .CHECK_EQUAL (threetree.left(5), 3)
   .CHECK_EQUAL (threetree.right(5), 7)
   .CHECK_THROWS(threetree.insert(3))
-  .CHECK_OK    (threetree.print());
+  .CHECK_OK    (threetree.print())
 
-Added tests:
+//Added tests:
   .CHECK_EQUAL (increasetree.size(), 0) //new tree should have size zero.
   .CHECK_OK (increasetree.insert(0)) //inserting integers in increasing order. tree should be as follows:
   //                                    0
@@ -79,7 +80,34 @@ Added tests:
   .CHECK_THROWS (negativetree.right(0)) //last-inserted node "0" should have no childs!
   .CHECK_THROWS (negativetree.parent(-1)) //-1 is the root hence it should have no parent.
 
-  .print();
+  .CHECK_OK (massivetree.insert(0))
+  .CHECK_OK (massivetree.insert(-10))
+  .CHECK_OK (massivetree.insert(-30))
+  .CHECK_OK (massivetree.insert(-5))
+  .CHECK_OK (massivetree.insert(-1))
+  .CHECK_OK (massivetree.insert(100))
+  .CHECK_OK (massivetree.insert(1))
+  .CHECK_OK (massivetree.insert(200))
+  .CHECK_OK (massivetree.insert(150))
+  // According to insertion order, tree should look like:
+  /*
+                    0
+            -10             100
+         -30    -5       1       200
+                   -1         150
+  */
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_THROWS (massivetree.parent(0)) //0 is root.
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size,9);
+  //more added soon.
 
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
 }
