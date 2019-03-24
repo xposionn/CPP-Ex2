@@ -37,7 +37,7 @@ int main() {
   .CHECK_EQUAL (threetree.left(5), 3)
   .CHECK_EQUAL (threetree.right(5), 7)
   .CHECK_THROWS(threetree.insert(3))
-  .CHECK_OK    (threetree.print())
+  // .CHECK_OK    (threetree.print())
 
 //Added tests:
   .CHECK_EQUAL (increasetree.size(), 0) //new tree should have size zero.
@@ -96,18 +96,41 @@ int main() {
          -30    -5       1       200
                    -1         150
   */
-  .CHECK_EQUAL (massivetree.size,9)
+  .CHECK_EQUAL (massivetree.size(),9)
   .CHECK_THROWS (massivetree.parent(0)) //0 is root.
-  .CHECK_EQUAL (massivetree.size,9)
-  .CHECK_EQUAL (massivetree.size,9)
-  .CHECK_EQUAL (massivetree.size,9)
-  .CHECK_EQUAL (massivetree.size,9)
-  .CHECK_EQUAL (massivetree.size,9)
-  .CHECK_EQUAL (massivetree.size,9)
-  .CHECK_EQUAL (massivetree.size,9)
-  .CHECK_EQUAL (massivetree.size,9)
-  .CHECK_EQUAL (massivetree.size,9);
-  //more added soon.
+  .CHECK_EQUAL (massivetree.parent(-1),-5)
+  .CHECK_EQUAL (massivetree.parent(-5),-10)
+  .CHECK_EQUAL (massivetree.parent(-10),0)
+  .CHECK_EQUAL (massivetree.parent(-30),-10)
+  .CHECK_EQUAL (massivetree.parent(150),200)
+  .CHECK_EQUAL (massivetree.parent(1),100)
+  .CHECK_EQUAL (massivetree.parent(200),100)
+  .CHECK_EQUAL (massivetree.left(0),-10)
+  .CHECK_EQUAL (massivetree.left(-10),-30)
+  .CHECK_EQUAL (massivetree.left(100),1)
+  .CHECK_EQUAL (massivetree.right(0),100)
+  .CHECK_EQUAL (massivetree.right(100),200)
+  .CHECK_EQUAL (massivetree.right(-10),-5)
+  .CHECK_EQUAL (massivetree.right(-5),-1)
+  .CHECK_THROWS (massivetree.left(-30))
+  .CHECK_THROWS (massivetree.left(-5))
+  .CHECK_THROWS (massivetree.left(1))
+  .CHECK_THROWS (massivetree.left(150))
+  .CHECK_THROWS (massivetree.right(-30))
+  .CHECK_THROWS (massivetree.right(1))
+  .CHECK_THROWS (massivetree.right(200))
+  .CHECK_THROWS (massivetree.right(150))
+  .CHECK_THROWS (massivetree.insert(-30)) //insertion twice same element.
+  .CHECK_OK (massivetree.remove(-30))
+  .CHECK_THROWS (massivetree.remove(-30)) //double-removing.
+  .CHECK_THROWS (massivetree.remove(-1000)) //removing non-existant element.
+  .CHECK_THROWS (massivetree.parent(-30)) //parent of a removed element.
+  .CHECK_EQUAL (massivetree.size(),8) //size should decrease to 8.
+  .CHECK_THROWS (massivetree.insert(0)) //insertion of already-existant element.
+  .CHECK_OK (massivetree.remove(0)) //removing root. should pick left child (-10) as root now.
+  .CHECK_EQUAL (massivetree.parent(100),-10);
+
+
 
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
 }
