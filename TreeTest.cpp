@@ -66,7 +66,6 @@ Added tests:
   .CHECK_THROWS (increasetree.right(7))
   .CHECK_THROWS (increasetree.left(7))
   
-
   .CHECK_OK (negativetree.insert(-1)) //adding negative integers in degreasing order.
   .CHECK_OK (negativetree.insert(-2))
   .CHECK_OK (negativetree.insert(-3))
@@ -77,10 +76,10 @@ Added tests:
   .CHECK_EQUAL (negativetree.parent(0),-1) //parent of the "0" node, which we inserted last, should be the right chile of -1. thus, parent of 0 is -1.
   .CHECK_EQUAL (negativetree.right(-1),0) //explained above
   .CHECK_THROWS (negativetree.left(0)) //last-inserted node "0" should have no childs!
-  .CHECK_THROWS (negativetree.right(0)); //last-inserted node "0" should have no childs!
+  .CHECK_THROWS (negativetree.right(0)) //last-inserted node "0" should have no childs!
   .CHECK_THROWS (negativetree.parent(-1)) //-1 is the root hence it should have no parent.
 
-  // // .print();
+  .print();
 
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
 }
